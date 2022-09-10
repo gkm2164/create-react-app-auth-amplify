@@ -15,13 +15,9 @@ const App = (args) => {
 
   const handleCopyImage = async () => {
     try {
-      const imageSrc = firstImageRef.current?.src
-      console.log(imageSrc);
       if (thisBlob) {
-        console.log("has blob");
         const imageUrl = uuidv4();
         await uploadImage(imageUrl, thisBlob);
-        console.log("uploaded image");
         const realUrl = `https://images.gben.me/images/${imageUrl}`;
         setCopiedImageURL(realUrl);
       }
@@ -30,17 +26,8 @@ const App = (args) => {
     }
   }
 
-  const uploadImage = async (imageName, blob) => {
-    console.log(imageName);
-
-    try {
-      const result = await Storage.put(`images/${imageName}`, blob, {contentType: "image/png"})
-      console.log(result);
-      return result;
-    } catch (e) {
-      console.log("error from S3: " + e);
-    }
-  }
+  const uploadImage = (imageName, blob) =>
+    Storage.put(`images/${imageName}`, blob, {contentType: "image/png"});
 
   const handleTransformDataTransferIntoURL = (dataTransfer) => {
     const [firstItem] = dataTransfer.items
@@ -57,19 +44,13 @@ const App = (args) => {
       }
     }
 
-    document.addEventListener('paste', handlePasteOnDocument)
-
-    return () => {
-      document.removeEventListener('paste', handlePasteOnDocument)
-    }
+    document.addEventListener('paste', handlePasteOnDocument);
   })
-
-  console.log(args);
 
   return (
     <div className="App">
       <button onClick={args.signOut}>Sign out</button>
-      <h1>Logined as {args.user.username}</h1>
+      <h1>Hello, {args.user.username}!</h1>
       <div>
         <img
           ref={firstImageRef}
@@ -89,15 +70,5 @@ const App = (args) => {
     </div>
   );
 };
-// };
-//
-// export function SetS3Config(bucket, level) {
-//   Storage.configure({
-//     bucket: bucket,
-//     level: level,
-//     region: aws_exports.aws_cognito_region,
-//     identityPoolId: aws_exports.aws_cognito_identity_pool_id
-//   });
-// }
 
 export default withAuthenticator(App);
