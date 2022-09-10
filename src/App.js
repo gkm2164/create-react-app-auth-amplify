@@ -22,7 +22,7 @@ const App = (args) => {
         const imageUrl = uuidv4();
         await uploadImage(imageUrl, thisBlob);
         console.log("uploaded image");
-        const realUrl = `https://s3.amazonaws.com/image.gben.me/images/${imageUrl}`;
+        const realUrl = `https://images.gben.me/images/${imageUrl}`;
         setCopiedImageURL(realUrl);
       }
     } catch (e) {
