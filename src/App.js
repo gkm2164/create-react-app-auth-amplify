@@ -31,7 +31,6 @@ const App = (args) => {
   }
 
   const uploadImage = async (imageName, blob) => {
-    SetS3Config("gben-me-screenshots", "public");
     console.log(imageName);
 
     try {
@@ -90,14 +89,15 @@ const App = (args) => {
     </div>
   );
 };
-
-export function SetS3Config(bucket, level) {
-  Storage.configure({
-    bucket: bucket,
-    level: level,
-    region: aws_exports.aws_cognito_region,
-    identityPoolId: aws_exports.aws_cognito_identity_pool_id
-  });
-}
+// };
+//
+// export function SetS3Config(bucket, level) {
+//   Storage.configure({
+//     bucket: bucket,
+//     level: level,
+//     region: aws_exports.aws_cognito_region,
+//     identityPoolId: aws_exports.aws_cognito_identity_pool_id
+//   });
+// }
 
 export default withAuthenticator(App);
