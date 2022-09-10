@@ -5,7 +5,8 @@ import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 import {v4 as uuidv4} from 'uuid';
 import {Button, Heading, Image, TextField, withAuthenticator} from "@aws-amplify/ui-react";
-import {CopyToClipboard} from "react-copy-to-clipboard/src";
+import copy from 'copy-to-clipboard';
+import {toast, Toaster} from "react-hot-toast";
 
 Amplify.configure(aws_exports);
 
@@ -21,6 +22,7 @@ const App = (args) => {
         await uploadImage(imageUrl, thisBlob);
         const realUrl = `https://images.gben.me/images/${imageUrl}`;
         setCopiedImageURL(realUrl);
+        copyImageUrl();
       }
     } catch (e) {
       if (e?.message) alert(e.message)
@@ -48,8 +50,14 @@ const App = (args) => {
     document.addEventListener('paste', handlePasteOnDocument);
   })
 
+  const copyImageUrl = () => {
+    copy(copiedImageURL);
+    toast("Copied to clipboard");
+  }
+
   return (
     <div className="App">
+      <Toaster />
       <Button onClick={args.signOut}>Sign out</Button>
       <Heading level={2}>Hello, {args.user.username}!</Heading>
       <Image
@@ -64,11 +72,6 @@ const App = (args) => {
       <Button onClick={() => handleCopyImage()}>
         <span>Upload image</span>
       </Button>
-      <CopyToClipboard text={copiedImageURL}>
-        <Button disabled={!copiedImageURL}>
-          <span>Copy Image Url</span>
-        </Button>
-      </CopyToClipboard>
     </div>
   );
 };
