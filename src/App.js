@@ -57,21 +57,24 @@ const App = (args) => {
 
   return (
     <div className="App">
-      <Toaster />
+      <Toaster/>
       <Button onClick={args.signOut}>Sign out</Button>
       <Heading level={2}>Hello, {args.user.username}!</Heading>
-      <Image
-        ref={firstImageRef}
-        src={copiedImageURL}
-        draggable={false}
-        width={'500px'}
-        height={'500px'}
-        alt={copiedImageURL}
-      />
-      <TextField disabled={true} value={copiedImageURL}/>
-      <Button onClick={() => handleCopyImage()}>
-        <span>Upload image</span>
-      </Button>
+      <div>
+        <Image
+          ref={firstImageRef}
+          src={copiedImageURL}
+          draggable={false}
+          width={'100px'}
+          height={'100px'}
+          alt={copiedImageURL}
+        />
+      </div>
+      <div>
+        <Button onClick={() => handleCopyImage()}>
+          <span>Upload image</span>
+        </Button>
+      </div>
     </div>
   );
 };
