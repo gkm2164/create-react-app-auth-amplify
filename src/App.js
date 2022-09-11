@@ -22,7 +22,7 @@ const App = (args) => {
         await uploadImage(imageUrl, thisBlob);
         const realUrl = `https://images.gben.me/images/${imageUrl}`;
         setCopiedImageURL(realUrl);
-        copyImageUrl();
+        copyImageUrl(realUrl);
       }
     } catch (e) {
       if (e?.message) alert(e.message)
@@ -50,8 +50,8 @@ const App = (args) => {
     document.addEventListener('paste', handlePasteOnDocument);
   })
 
-  const copyImageUrl = () => {
-    copy(copiedImageURL);
+  const copyImageUrl = (realUrl) => {
+    copy(realUrl);
     toast("Copied to clipboard");
   }
 
