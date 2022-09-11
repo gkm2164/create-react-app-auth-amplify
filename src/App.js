@@ -4,7 +4,7 @@ import {Storage} from "@aws-amplify/storage";
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
 import {v4 as uuidv4} from 'uuid';
-import {Button, Heading, Image, TextField, withAuthenticator} from "@aws-amplify/ui-react";
+import {Button, Heading, Image, withAuthenticator} from "@aws-amplify/ui-react";
 import copy from 'copy-to-clipboard';
 import {toast, Toaster} from "react-hot-toast";
 
